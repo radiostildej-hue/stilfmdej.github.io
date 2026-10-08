@@ -140,9 +140,9 @@
 
 <script>
 
-const STREAM_URL = "http://92.180.18.201:8000/StilFmDej";
+const STREAM_URL = "https://92.180.18.201:8000/StilFmDej";
 // Metadata is fetched through the website domain (same origin), so the browser does not need access to the private 10.0.30.198 address.
-const METADATA_URL = "/api/metadata.php";
+const METADATA_URL = "";
 
 const radio = document.getElementById("radio");
 const playButton = document.getElementById("playButton");
@@ -184,49 +184,13 @@ volume.addEventListener("input", function () {
 });
 
 
-async function updateSong() {
-
-    try {
-
-        const response = await fetch(
-            METADATA_URL + "?t=" + Date.now()
-        );
-
-        if (!response.ok) {
-            throw new Error("HTTP " + response.status);
-        }
-
-        const data = await response.json();
-
-        let source = data.icestats.source;
-
-        if (Array.isArray(source)) {
-            source = source.find(function (item) {
-                return item.listenurl &&
-                       item.listenurl.includes("/StilFmDej");
-            });
-        }
-
-        if (
-            source &&
-            source.metadata &&
-            source.metadata.x_icy_title
-        ) {
-            song.textContent = source.metadata.x_icy_title;
-        } else {
-            song.textContent = "Stil FM Dej - Live";
-        }
-
-    } catch (error) {
-
-        console.error("Eroare metadata:", error);
-        song.textContent = "Stil FM Dej - Live";
-    }
+function updateSong() {
+    // GitHub Pages is static and cannot run PHP.
+    // The song title will be enabled after we expose Icecast metadata over HTTPS.
+    song.textContent = "Stil FM Dej - Live";
 }
 
 updateSong();
-
-setInterval(updateSong, 5000);
 
 </script>
 
