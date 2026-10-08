@@ -116,7 +116,7 @@
     <div class="logo">SFD</div>
 
     <h1>STIL FM DEJ</h1>
-    <div class="subtitle">RadioDJ • Live</div>
+    <div class="subtitle">Un Radio In Stilul Tau! • Live</div>
 
     <div class="now-playing">
         <div class="label">Acum la radio</div>
@@ -141,7 +141,8 @@
 <script>
 
 const STREAM_URL = "http://92.180.18.201:8000/StilFmDej";
-const METADATA_URL = "http://10.0.30.198:8000/status-json.xsl";
+// Metadata is fetched through the website domain (same origin), so the browser does not need access to the private 10.0.30.198 address.
+const METADATA_URL = "/api/metadata.php";
 
 const radio = document.getElementById("radio");
 const playButton = document.getElementById("playButton");
